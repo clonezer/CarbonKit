@@ -160,10 +160,14 @@
 	tabScrollView = [[UIScrollView alloc] init];
 	[self.view addSubview:tabScrollView];
 	
-	// create indicator
+    // create bottomLine
+    bottomLine = [[UIImageView alloc] init];
+    bottomLine.backgroundColor = [UIColor whiteColor];
+    [segmentController addSubview:bottomLine];
+
+    // create indicator
 	indicator = [[UIImageView alloc] init];
 	indicator.backgroundColor = self.view.tintColor;
-    [segmentController addSubview:bottomLine];
 	[segmentController addSubview:indicator];
 	
 	[segmentController setTintColor:[UIColor clearColor]];
