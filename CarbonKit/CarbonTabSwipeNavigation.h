@@ -112,6 +112,14 @@
 - (void)setSelectedColor:(UIColor *)color font:(UIFont *)font;
 
 /**
+ *	UIFont and UIColor for tab in selected state
+ *	@param color UIColor : color of selected state
+ *	@param indicatorColor UIColor : color of indicator
+ *	@param font UIFont : font of selected state
+ */
+- (void)setSelectedColor:(UIColor *)color indicatorColor:(UIColor *)indicatorColor font:(UIFont *)font;
+
+/**
  * Add 1 pixel shadow
  */
 - (void)addShadow;

@@ -41,11 +41,16 @@
 	UIPageViewController *pageController;
 	UIScrollView *tabScrollView;
 	UISegmentedControl *segmentController;
-	UIImageView *indicator;
-	
-	NSLayoutConstraint *indicatorLeftConst;
-	NSLayoutConstraint *indicatorWidthConst;
-	NSLayoutConstraint *indicatorHeightConst;
+    UIImageView *indicator;
+    UIImageView *bottomLine;
+    
+    NSLayoutConstraint *indicatorLeftConst;
+    NSLayoutConstraint *indicatorWidthConst;
+    NSLayoutConstraint *indicatorHeightConst;
+    
+    NSLayoutConstraint *bottomLineLeftConst;
+    NSLayoutConstraint *bottomLineWidthConst;
+    NSLayoutConstraint *bottomLineHeightConst;
 }
 
 @end
@@ -189,42 +194,80 @@
 	[rootViewController.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[rootTopLayoutGuide][parentView][rootBottomLayoutGuide]" options:0 metrics:metricsDictionary views:viewsDictionary]];
 	[rootViewController.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[parentView]|" options:0 metrics:metricsDictionary views:viewsDictionary]];
 	
-	[indicator setTranslatesAutoresizingMaskIntoConstraints:NO];
-	[segmentController addConstraint:[NSLayoutConstraint constraintWithItem:indicator
-								      attribute:NSLayoutAttributeBottom
-								      relatedBy:NSLayoutRelationEqual
-									 toItem:indicator.superview
-								      attribute:NSLayoutAttributeBottom
-								     multiplier:1.0
-								       constant:1]];
-	
-	indicatorHeightConst = [NSLayoutConstraint constraintWithItem:indicator
-														attribute:NSLayoutAttributeHeight
-														relatedBy:NSLayoutRelationEqual
-														   toItem:indicator.superview
-														attribute:NSLayoutAttributeHeight
-													   multiplier:0
-														 constant:3.f];
-	
-	indicatorLeftConst = [NSLayoutConstraint constraintWithItem:indicator
-													  attribute:NSLayoutAttributeLeading
-													  relatedBy:NSLayoutRelationEqual
-														 toItem:indicator.superview
-													  attribute:NSLayoutAttributeLeading
-													 multiplier:1
-													   constant:0];
-	
-	indicatorWidthConst = [NSLayoutConstraint constraintWithItem:indicator
-													   attribute:NSLayoutAttributeWidth
-													   relatedBy:NSLayoutRelationEqual
-														  toItem:indicator.superview
-													   attribute:NSLayoutAttributeWidth
-													  multiplier:0
-														constant:0];
-	
-	[segmentController addConstraint:indicatorHeightConst];
-	[segmentController addConstraint:indicatorLeftConst];
-	[segmentController addConstraint:indicatorWidthConst];
+    [bottomLine setTranslatesAutoresizingMaskIntoConstraints:NO];
+    [indicator setTranslatesAutoresizingMaskIntoConstraints:NO];
+    
+    [segmentController addConstraint:[NSLayoutConstraint constraintWithItem:indicator
+                                                                  attribute:NSLayoutAttributeBottom
+                                                                  relatedBy:NSLayoutRelationEqual
+                                                                     toItem:indicator.superview
+                                                                  attribute:NSLayoutAttributeBottom
+                                                                 multiplier:1.0
+                                                                   constant:1]];
+    
+    [segmentController addConstraint:[NSLayoutConstraint constraintWithItem:bottomLine
+                                                                  attribute:NSLayoutAttributeBottom
+                                                                  relatedBy:NSLayoutRelationEqual
+                                                                     toItem:bottomLine.superview
+                                                                  attribute:NSLayoutAttributeBottom
+                                                                 multiplier:1.0
+                                                                   constant:1]];
+    
+    indicatorHeightConst = [NSLayoutConstraint constraintWithItem:indicator
+                                                        attribute:NSLayoutAttributeHeight
+                                                        relatedBy:NSLayoutRelationEqual
+                                                           toItem:indicator.superview
+                                                        attribute:NSLayoutAttributeHeight
+                                                       multiplier:0
+                                                         constant:3.f];
+    
+    bottomLineHeightConst = [NSLayoutConstraint constraintWithItem:bottomLine
+                                                         attribute:NSLayoutAttributeHeight
+                                                         relatedBy:NSLayoutRelationEqual
+                                                            toItem:bottomLine.superview
+                                                         attribute:NSLayoutAttributeHeight
+                                                        multiplier:0
+                                                          constant:3.f];
+    
+    indicatorLeftConst = [NSLayoutConstraint constraintWithItem:indicator
+                                                      attribute:NSLayoutAttributeLeading
+                                                      relatedBy:NSLayoutRelationEqual
+                                                         toItem:indicator.superview
+                                                      attribute:NSLayoutAttributeLeading
+                                                     multiplier:1
+                                                       constant:0];
+    
+    bottomLineLeftConst = [NSLayoutConstraint constraintWithItem:bottomLine
+                                                       attribute:NSLayoutAttributeLeading
+                                                       relatedBy:NSLayoutRelationEqual
+                                                          toItem:bottomLine.superview
+                                                       attribute:NSLayoutAttributeLeading
+                                                      multiplier:1
+                                                        constant:0];
+    
+    indicatorWidthConst = [NSLayoutConstraint constraintWithItem:indicator
+                                                       attribute:NSLayoutAttributeWidth
+                                                       relatedBy:NSLayoutRelationEqual
+                                                          toItem:indicator.superview
+                                                       attribute:NSLayoutAttributeWidth
+                                                      multiplier:0
+                                                        constant:0];
+    
+    bottomLineWidthConst = [NSLayoutConstraint constraintWithItem:bottomLine
+                                                        attribute:NSLayoutAttributeWidth
+                                                        relatedBy:NSLayoutRelationEqual
+                                                           toItem:bottomLine.superview
+                                                        attribute:NSLayoutAttributeWidth
+                                                       multiplier:1
+                                                         constant:0];
+    
+    [segmentController addConstraint:indicatorHeightConst];
+    [segmentController addConstraint:indicatorLeftConst];
+    [segmentController addConstraint:indicatorWidthConst];
+    
+    [segmentController addConstraint:bottomLineHeightConst];
+    [segmentController addConstraint:bottomLineLeftConst];
+    [segmentController addConstraint:bottomLineWidthConst];
 	
 	segmentController.selectedSegmentIndex = 0;
 	
@@ -289,6 +332,15 @@
 												NSFontAttributeName:font
 												}
 									 forState:UIControlStateSelected];
+}
+
+- (void)setSelectedColor:(UIColor *)color indicatorColor:(UIColor *)indicatorColor font:(UIFont *)font {
+    indicator.backgroundColor = indicatorColor;
+    [segmentController setTitleTextAttributes:@{
+                                                NSForegroundColorAttributeName:color,
+                                                NSFontAttributeName:font
+                                                }
+                                     forState:UIControlStateSelected];
 }
 
 // add shadow
