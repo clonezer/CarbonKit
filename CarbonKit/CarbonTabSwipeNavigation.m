@@ -163,6 +163,7 @@
 	// create indicator
 	indicator = [[UIImageView alloc] init];
 	indicator.backgroundColor = self.view.tintColor;
+    [segmentController addSubview:bottomLine];
 	[segmentController addSubview:indicator];
 	
 	[segmentController setTintColor:[UIColor clearColor]];
