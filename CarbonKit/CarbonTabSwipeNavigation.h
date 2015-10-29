@@ -86,6 +86,12 @@
 - (void)setIndicatorHeight:(CGFloat)height;
 
 /**
+ *  Change bottom line height
+ *  @param height Bottom line height
+ */
+- (void)setBottomLineHeight:(CGFloat)height;
+
+/**
  *	UIColor for tab in normal state
  *	@param color UIColor : color of normal state
  */

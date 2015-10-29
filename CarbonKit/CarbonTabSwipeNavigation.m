@@ -305,6 +305,10 @@
 	indicatorHeightConst.constant = height;
 }
 
+- (void)setBottomLineHeight:(CGFloat)height {
+    bottomLineHeightConst.constant = height;
+}
+
 - (void)setTintColor:(UIColor *)tintColor {
 	tabScrollView.backgroundColor = tintColor;
 }
